@@ -1,11 +1,13 @@
 #include <functional>
 #include <iostream>
 
-#include <spdlog/spdlog.h>
+#include "ui/DumpWidget.h"
 #include <docopt/docopt.h>
+#include <QApplication>
+#include <spdlog/spdlog.h>
 
 static constexpr auto USAGE =
-  R"(Naval Fate.
+		R"(Naval Fate.
 
     Usage:
           naval_fate ship new <name>...
@@ -22,9 +24,8 @@ static constexpr auto USAGE =
           --drifting    Drifting mine.
 )";
 
-int main(int argc, const char **argv)
-{
-  std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
+int main(int argc, char** argv) {
+	/*std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
     { std::next(argv), std::next(argv, argc) },
     true,// show help if requested
     "Naval Fate 2.0");// version string
@@ -32,10 +33,15 @@ int main(int argc, const char **argv)
   for (auto const &arg : args) {
     std::cout << arg.first << arg.second << std::endl;
   }
+*/
+	QApplication app(argc, argv);
 
+	//Use the default logger (stdout, multi-threaded, colored)
+	spdlog::info("Hello, {}!", "World");
+	client::ui::DumpWidget widget;
+	widget.show();
 
-  //Use the default logger (stdout, multi-threaded, colored)
-  spdlog::info("Hello, {}!", "World");
+	fmt::print("Hello, from {}\n", "{fmt}");
+	return app.exec();
 
-  fmt::print("Hello, from {}\n", "{fmt}");
-}
+} // namespace ui

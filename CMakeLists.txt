@@ -5,9 +5,8 @@ project(NODES_EDITOR CXX)
 include(cmake/StandardProjectSettings.cmake)
 include(cmake/PreventInSourceBuilds.cmake)
 
-# Link this 'library' to set the c++ standard / compile-time options requested
 add_library(project_options INTERFACE)
-target_compile_features(project_options INTERFACE cxx_std_20)
+target_compile_features(project_options INTERFACE cxx_std_17)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
   option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracing .json files on clang" OFF)
@@ -28,7 +27,7 @@ set_project_warnings(project_warnings)
 
 # sanitizer options if supported by compiler
 include(cmake/Sanitizers.cmake)
-enable_sanitizers(project_options)
+enable_sanitizers(${PROJECT_NAME})
 
 # enable doxygen
 include(cmake/Doxygen.cmake)
@@ -53,6 +52,9 @@ if(ENABLE_TESTING)
   message("Building Tests. Be sure to check out test/constexpr_tests for constexpr testing")
   add_subdirectory(test)
 endif()
+
+set(QT_COMPONENTS Core Gui Widgets Network SerialPort Test LinguistTools PrintSupport Designer Xml Svg Sql Multimedia)
+find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED)
 
 add_subdirectory(src)
 
