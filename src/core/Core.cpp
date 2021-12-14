@@ -3,3 +3,8 @@
 //
 
 #include "Core.h"
+
+using namespace core;
+
+Core::Core() {
+}

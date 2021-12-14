@@ -6,15 +6,6 @@ macro(add_module FOLDER)
     set(MODULES ${MODULES} PARENT_SCOPE)
 endmacro()
 
-option(DEV_BUILD "Enable developer build" ON)
-
-if(${DEV_BUILD})
-    message("Build configuration: DEV_BUILD")
-    add_compile_definitions(DEV_BUILD)
-else()
-    message("Build configuration: PRODUCTION")
-endif()
-
 set(APP_NAME node_editor_qml)
 set(CMAKE_INSTALL_PREFIX "/opt/${APP_NAME}" CACHE PATH "App installation directory" FORCE)
 include(GNUInstallDirs)

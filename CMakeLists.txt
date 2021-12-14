@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 
-# Set the project name to your project name, my project isn't very descriptive
+# Set the project name to your project name
 project(NODES_EDITOR CXX)
 include(cmake/StandardProjectSettings.cmake)
 include(cmake/PreventInSourceBuilds.cmake)
 
 add_library(project_options INTERFACE)
-target_compile_features(project_options INTERFACE cxx_std_17)
+target_compile_features(project_options INTERFACE cxx_std_20)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
   option(ENABLE_BUILD_WITH_TIME_TRACE "Enable -ftime-trace to generate time tracing .json files on clang" OFF)
@@ -53,8 +53,22 @@ if(ENABLE_TESTING)
   add_subdirectory(test)
 endif()
 
-set(QT_COMPONENTS Core Gui Widgets Network SerialPort Test LinguistTools PrintSupport Designer Xml Svg Sql Multimedia)
+set(QT_COMPONENTS Core Quick Gui Widgets Network Test LinguistTools Sql Multimedia MultimediaWidgets  Qml Quick  )
 find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+
+file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
+if(EXISTS "${LOC_PATH}")
+  message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file).\
+	Please make a build subdirectory.")
+endif()
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
 
 add_subdirectory(src)
 

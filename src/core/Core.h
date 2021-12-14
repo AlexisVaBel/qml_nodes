@@ -2,5 +2,7 @@
 
 namespace core {
 class Core {
+public:
+	Core();
 };
 } // namespace core

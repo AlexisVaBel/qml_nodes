@@ -1,47 +1,44 @@
+#include <QApplication>
+
+#include <client/ui/DumpWidget.h>
+
+#include "spdlog/sinks/stdout_sinks.h"
+#include <docopt/docopt.h>
 #include <functional>
 #include <iostream>
-
-#include "ui/DumpWidget.h"
-#include <docopt/docopt.h>
-#include <QApplication>
+#include <QQmlApplicationEngine>
 #include <spdlog/spdlog.h>
 
 static constexpr auto USAGE =
-		R"(Naval Fate.
+		R"(QML NODES.
 
     Usage:
-          naval_fate ship new <name>...
-          naval_fate ship <name> move <x> <y> [--speed=<kn>]
-          naval_fate ship shoot <x> <y>
-          naval_fate mine (set|remove) <x> <y> [--moored | --drifting]
-          naval_fate (-h | --help)
-          naval_fate --version
+          TODO - prepare usage
  Options:
           -h --help     Show this screen.
           --version     Show version.
-          --speed=<kn>  Speed in knots [default: 10].
-          --moored      Moored (anchored) mine.
-          --drifting    Drifting mine.
 )";
 
+auto initLog() {
+	auto console = spdlog::stdout_logger_mt("console");
+	spdlog::set_default_logger(console);
+	spdlog::set_pattern("[source %s] [function %!] [line %#] %v");
+	return console;
+}
+
 int main(int argc, char** argv) {
-	/*std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
-    { std::next(argv), std::next(argv, argc) },
-    true,// show help if requested
-    "Naval Fate 2.0");// version string
+	SPDLOG_INFO("initiated app");
 
-  for (auto const &arg : args) {
-    std::cout << arg.first << arg.second << std::endl;
-  }
-*/
 	QApplication app(argc, argv);
+	//	auto logger = initLog();
 
-	//Use the default logger (stdout, multi-threaded, colored)
-	spdlog::info("Hello, {}!", "World");
-	client::ui::DumpWidget widget;
-	widget.show();
+	SPDLOG_INFO("initiated qml engine");
 
-	fmt::print("Hello, from {}\n", "{fmt}");
+	QQmlApplicationEngine engine;
+	//	logger->info("trying to load main.qml");
+
+	engine.load(QUrl(QStringLiteral("qrc:⁄main.qml")));
+
 	return app.exec();
 
 } // namespace ui

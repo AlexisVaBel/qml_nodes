@@ -18,5 +18,6 @@ list(APPEND HEADERS "Server.h")
 
 add_library(server STATIC ${SOURCES} ${HEADERS})
 
-target_link_libraries(server PUBLIC Qt5::Core Qt5::SerialPort)
+target_link_libraries(server PUBLIC Qt5::Core)
+#translation
 #target_link_libraries(server PUBLIC i18n)
