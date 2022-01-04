@@ -24,7 +24,7 @@ qt5_use_modules(myapp Quick Core Network)
 add_library(client STATIC ${SOURCES} ${HEADERS} ${UIS})
 target_include_directories(client PRIVATE "${PROJECT_BINARY_DIR}")
 target_include_directories(client PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
-target_link_libraries(client PUBLIC Qt5::Core Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets  Qt5::Qml Qt5::Quick)
+target_link_libraries(client PUBLIC Qt5::Core Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets Qt5::Qml Qt5::Quick)
 target_link_libraries(client PUBLIC core server)
 
 add_executable(${APP_NAME} main.cpp)
