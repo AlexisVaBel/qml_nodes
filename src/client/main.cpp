@@ -30,14 +30,12 @@ int main(int argc, char** argv) {
 	SPDLOG_INFO("initiated app");
 
 	QApplication app(argc, argv);
-	//	auto logger = initLog();
 
 	SPDLOG_INFO("initiated qml engine");
 
 	QQmlApplicationEngine engine;
-	//	logger->info("trying to load main.qml");
 
-	engine.load(QUrl(QStringLiteral("qrc:⁄main.qml")));
+	engine.load(QUrl(QStringLiteral("qrc:/ui/qml/main.qml")));
 
 	return app.exec();
 
