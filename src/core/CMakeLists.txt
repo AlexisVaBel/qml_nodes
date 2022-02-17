@@ -1,7 +1,7 @@
 file(GLOB SOURCES "*.cpp")
 file(GLOB HEADERS "*.h")
 
-#set(CORE_MODULES somedirs)
+set(CORE_MODULES result)
 foreach(X ${CORE_MODULES})
     file(GLOB ${X}_SOURCES "${X}/*.cpp")
     file(GLOB ${X}_HEADERS "${X}/*.h")

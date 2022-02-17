@@ -18,8 +18,8 @@ endforeach ()
 configure_file(Deploy.in.h Deploy.h)
 
 
-
 qt5_add_resources(QT_RESOURCES qml.qrc)
+
 add_library(client STATIC ${SOURCES} ${HEADERS} ${UIS})
 target_include_directories(client PRIVATE "${PROJECT_BINARY_DIR}")
 target_include_directories(client PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
@@ -41,6 +41,6 @@ target_link_libraries(${APP_NAME}
         Qt5::Quick
         )
 
-#target_link_options(${APP_NAME} PUBLIC "-Wl,--disable-new-dtags")
-#target_link_options(${APP_NAME} PUBLIC "-Wl,-z,origin")
+target_link_options(${APP_NAME} PUBLIC "-Wl,--disable-new-dtags")
+target_link_options(${APP_NAME} PUBLIC "-Wl,-z,origin")
 

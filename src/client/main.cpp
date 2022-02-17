@@ -34,8 +34,13 @@ int main(int argc, char** argv) {
 	SPDLOG_INFO("initiated qml engine");
 
 	QQmlApplicationEngine engine;
-
-	engine.load(QUrl(QStringLiteral("qrc:/ui/qml/main.qml")));
+	const QUrl url(QStringLiteral("qrc:/ui/qml/main.qml"));
+	QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+			&app, [url](QObject *obj, const QUrl &objUrl) {
+				if (!obj && url == objUrl)
+					QCoreApplication::exit(-1);
+			}, Qt::QueuedConnection);
+	engine.load(url);
 
 	return app.exec();
 
